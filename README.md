@@ -29,8 +29,8 @@ No `lefthook.yml` do projeto:
 
 ```yaml
 remotes:
-  - git_url: git@github.com:coderockrdev/commit-rules.git
-    ref: v1.0.0
+  - git_url: https://github.com/Coderockr/commit-rules.git
+    ref: v1.1.0
     configs:
       - commit-msg.yml
 ```
@@ -41,7 +41,7 @@ roda offline. Ao trocar o `ref`, rode `lefthook install` de novo.
 Para validar uma mensagem fora do commit:
 
 ```sh
-sh .git/info/lefthook-remotes/commit-rules-v1.0.0/.lefthook/commit-msg/conventional-commit.sh arquivo
+sh .git/info/lefthook-remotes/commit-rules-v1.1.0/.lefthook/commit-msg/conventional-commit.sh arquivo
 ```
 
 ## CI
@@ -54,7 +54,7 @@ sh .git/info/lefthook-remotes/commit-rules-v1.0.0/.lefthook/commit-msg/conventio
 
     steps:
       - name: Check commit messages
-        uses: coderockrdev/commit-rules@v1
+        uses: Coderockr/commit-rules@v1
 ```
 
 Inputs:
