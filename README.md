@@ -15,7 +15,7 @@ Ficam de fora os commits gerados pelo git: `Merge …`, `Revert …`, `fixup!`, 
 
 ## Escopos do projeto
 
-Arquivo `.commit-scopes` na raiz do repositório, um escopo por linha (`#` comenta):
+Arquivo `.commit-scopes` na raiz do repositório, um escopo por linha, em ordem alfabética (`#` comenta):
 
 ```
 auth
@@ -35,8 +35,8 @@ remotes:
       - commit-msg.yml
 ```
 
-`lefthook install` baixa a versão do `ref` para `.git/info/lefthook-remotes/`. Depois disso o hook
-roda offline. Ao trocar o `ref`, rode `lefthook install` de novo.
+No primeiro commit depois do `remotes` ou de um `ref` novo, o lefthook baixa a versão para
+`.git/info/lefthook-remotes/` sozinho, sem `lefthook install`. Depois disso o hook roda offline.
 
 Para validar uma mensagem fora do commit:
 
