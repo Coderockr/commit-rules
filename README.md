@@ -29,7 +29,7 @@ No `lefthook.yml` do projeto:
 
 ```yaml
 remotes:
-  - git_url: git@github.com:<owner>/commit-rules.git
+  - git_url: git@github.com:coderockrdev/commit-rules.git
     ref: v1.0.0
     configs:
       - commit-msg.yml
@@ -54,11 +54,15 @@ sh .git/info/lefthook-remotes/commit-rules-v1.0.0/.lefthook/commit-msg/conventio
 
     steps:
       - name: Check commit messages
-        uses: <owner>/commit-rules@v1
+        uses: coderockrdev/commit-rules@v1
 ```
 
-Inputs: `title` (valida o título do PR, que vira a mensagem no squash merge) e `commits` (valida
-cada commit do PR, sem merges). Os dois são `true` por padrão.
+Inputs:
+
+- `title` (padrão `true`): valida o título do PR, que vira a mensagem no squash merge.
+- `commits` (padrão `true`): valida cada commit do PR, sem merges.
+- `release-branch` (padrão `dev`): PR que sai dessa branch é de release (`dev` → `main`, título
+  `Release 18/11/2026`); o título dele não é validado, só os commits. Vazio valida todos os títulos.
 
 ## Versões
 

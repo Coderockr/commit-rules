@@ -8,6 +8,9 @@ inputs:
   commits:
     description: "Valida a mensagem de cada commit do PR (merges ficam de fora)."
     default: "true"
+  release-branch:
+    description: "Branch dos PRs de release (ex.: dev → main): o título deles não é validado, só os commits. Vazio valida todos os títulos."
+    default: "dev"
 
 runs:
   using: "composite"
@@ -28,6 +31,8 @@ runs:
         CHECK: ${{ github.action_path }}/.lefthook/commit-msg/conventional-commit.sh
         CHECK_TITLE: ${{ inputs.title }}
         CHECK_COMMITS: ${{ inputs.commits }}
+        RELEASE_BRANCH: ${{ inputs.release-branch }}
+        HEAD_REF: ${{ github.event.pull_request.head.ref }}
         PR_TITLE: ${{ github.event.pull_request.title }}
         BASE_SHA: ${{ github.event.pull_request.base.sha }}
         HEAD_SHA: ${{ github.event.pull_request.head.sha }}
@@ -35,7 +40,9 @@ runs:
         failed=0
         message=$(mktemp)
 
-        if [ "$CHECK_TITLE" = "true" ]; then
+        if [ "$CHECK_TITLE" = "true" ] && [ -n "$RELEASE_BRANCH" ] && [ "$HEAD_REF" = "$RELEASE_BRANCH" ]; then
+          echo "Release PR ($HEAD_REF): title not checked."
+        elif [ "$CHECK_TITLE" = "true" ]; then
           printf '%s\n' "$PR_TITLE" > "$message"
           if ! sh "$CHECK" "$message"; then
             echo "::error title=Invalid PR title::$PR_TITLE"
