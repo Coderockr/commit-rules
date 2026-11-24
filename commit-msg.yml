@@ -1,0 +1,4 @@
+commit-msg:
+  scripts:
+    "conventional-commit.sh":
+      runner: sh
